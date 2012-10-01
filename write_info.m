@@ -1,16 +1,59 @@
-function write_info(home_folder, basic_level_categories)
+function write_info(home_folder, category)
 %WRITE_INFO Summary of this function goes here
 %   Detailed explanation goes here
 
-fid = fopen([home_folder, '/info.txt'], 'w');
-n_categories = length(basic_level_categories);
+label = category.label;
+wnid = category.wnid;
+n_subcategories = length(category.sub_categories);
+n_of_imgs = category.n_of_imgs;
 
-fwrite(fid, ['label_list;n_of_images', char(10)])
+%% [1] Write info.txt
 
-for idx = 1 : n_categories
-    write_info = [basic_level_categories(idx).label, ';', ...
-                  num2str(basic_level_categories(idx).n_of_images), char(10)]; 
+txt_name = sprintf('%s_info.txt', label);
+fid = fopen([home_folder, '/basic_category_info/' , txt_name], 'w');
+
+fwrite(fid, ['== Basic Category Information ==', char(10), char(10)]);
+fwrite(fid, ['label : ', label, char(10)]);
+fwrite(fid, ['WordNet ID : ', wnid, char(10)]);
+fwrite(fid, ['# of subcategories : ', num2str(n_subcategories), char(10)]);
+fwrite(fid, ['# of images in category : ', num2str(n_of_imgs), char(10)]);
+
+fwrite(fid, char(10));
+
+fwrite(fid, ['/Sub-categories : ', char(10)]);
+fwrite(fid, [char(9), 'label / wnid / # of images', char(10), char(10)]);
+
+for idx = 1 : n_subcategories
+    sub_label = category.sub_categories(idx).label;
+    sub_wnid = category.sub_categories(idx).wnid;
+    sub_n_of_imgs = category.sub_categories(idx).n_of_imgs;
+    
+    write_info = [char(9), sub_label, ' / ', sub_wnid, ' / ', ...
+                  num2str(sub_n_of_imgs), char(10)]; 
     fwrite(fid, write_info);
 end
 
 fclose(fid);
+
+%% [2] Write imname.txt and urls.txt
+
+txt_name = sprintf('%s_imname.txt', label);
+txt_name_url = sprintf('%s_urls.txt', label);
+
+txt_name = ([home_folder, '/basic_category_info/' , txt_name]);
+txt_name_url = ([home_folder, '/basic_category_info/' , txt_name_url]);
+
+% Delete original files and rewrite info files
+delete(txt_name, txt_name_url);
+
+for idx = 1 : n_subcategories
+    % sub_n_of_imgs = category.sub_categories(idx).n_of_imgs;
+    
+    % Write image name information
+    write_info = category.sub_categories(idx).imname_list;
+    dlmcell(txt_name, write_info, '\n', '-a');
+    
+    % Write urls information
+    write_info = category.sub_categories(idx).urls;
+    dlmcell(txt_name_url, write_info, '\n', '-a');
+end

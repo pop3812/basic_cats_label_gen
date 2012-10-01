@@ -1,2 +1,6 @@
 # ignore m~ files
 *.m~
+
+# ignore basic_category info folder
+basic_categories/basic_category_info
+
