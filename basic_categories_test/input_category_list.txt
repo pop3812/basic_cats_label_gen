@@ -1,0 +1,10 @@
+label_list;wnid_list
+tiger;n02129604
+cat;n02121620
+dog;n02084071
+sunflower;n11978233
+palm_tree;n12582231
+oak_tree;n12268246
+car;n02958343
+desk;n03179701
+chair;n03001627
