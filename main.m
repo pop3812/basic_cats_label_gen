@@ -15,6 +15,7 @@ struct_xml = [home_folder, '/structure_released.xml'];
 input_txt_file = [home_folder, '/input_category_list.txt'];
 tdfread(input_txt_file, ';');
 
+super_category_list = cellstr(super_category_list);
 label_list = cellstr(label_list);
 wnid_list = cellstr(wnid_list);
 n_categories = length(label_list);
@@ -30,6 +31,7 @@ disp(['The files will be saved in : ', home_folder]);
 for idx = 1 : n_categories
     wnid = char(wnid_list(idx));
     label = char(label_list(idx));
+    super_category = char(super_category_list(idx));
     n_of_total_imgs = 0;
     
     disp([char(10), 'Working on basic level category : ', label, '... [', ...
@@ -41,6 +43,7 @@ for idx = 1 : n_categories
     % Save the information about the basic level category images
     basic_level_categories(idx).label = label;
     basic_level_categories(idx).wnid = wnid;
+    basic_level_categories(idx).super_category = super_category;
     sub_categories = struct([]);
     n_subcategories = length(sub_list);
     
