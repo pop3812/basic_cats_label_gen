@@ -27,7 +27,6 @@ fwrite(fid, char(10));
 
 fwrite(fid, ['/Sub-categories : ', char(10)]);
 fwrite(fid, [char(9), 'label / wnid / # of images', char(10), char(10)]);
-fwrite(fid_out, ['Super-category : ', super_category, char(10)]);
 
 for idx = 1 : n_subcategories
     sub_label = category.sub_categories(idx).label;
