@@ -28,6 +28,10 @@ disp([char(10), 'Download basic level category images including :'])
 disp(label_list);
 disp(['The files will be saved in : ', home_folder]);
 
+summary_name = 'summary.txt';
+fid_summary = fopen([home_folder, '/' , summary_name], 'w');
+fwrite(fid_summary, 'label_list;num_of_images_on_synset');
+
 for idx = 1 : n_categories
     wnid = char(wnid_list(idx));
     label = char(label_list(idx));
@@ -67,6 +71,7 @@ for idx = 1 : n_categories
     basic_level_categories(idx).sub_categories = sub_categories;   
     basic_level_categories(idx).n_of_imgs = n_of_total_imgs;
     % Backup the results (save every time)
+    fwrite(fid_summary, [label, ';', n_of_total_imgs]);
     save([home_folder, '/basic_level_categories_info.mat'], 'basic_level_categories');
    
     % Write a info txt files
@@ -74,6 +79,7 @@ for idx = 1 : n_categories
     % home_folder/info.txt file includes the information about the n_of_images
     % of each basic level category
 
+    fclose(fid_summary);
     write_info(home_folder, basic_level_categories(idx));
-
+    
 end
