@@ -10,16 +10,11 @@ super_category = category.super_category;
 
 %% [1] Write info.txt
 
-summary_name = 'summary.txt';
-fid_summary = fopen([home_folder, '/' , summary_name], 'w');
-
 txt_name = sprintf('%s_info.txt', label);
 fid = fopen([home_folder, '/basic_category_info/' , txt_name], 'w');
 
 txt_output = sprintf('%s_wnids.txt', label);
 fid_out = fopen([home_folder, '/packaged_output/' , txt_output], 'w');
-
-fwrite(fid_summary, ['label_list;num_of_images_on_synset']);
 
 fwrite(fid, ['== Basic Category Information ==', char(10), char(10)]);
 fwrite(fid, ['label : ', label, char(10)]);
@@ -45,6 +40,7 @@ for idx = 1 : n_subcategories
 end
 
 fclose(fid);
+fclose(fid_out);
 
 %% [2] Write imname.txt and urls.txt
 

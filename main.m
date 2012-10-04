@@ -5,9 +5,13 @@
 %
 % Set Synset ID and Label List for all the basic level categories 
 
-% Set download path
+% Set download path and output summary file path
 home_folder = './basic_categories';
 struct_xml = [home_folder, '/structure_released.xml'];
+
+summary_name = 'summary.txt';
+fid_summary = fopen([home_folder, '/' , summary_name], 'w');
+fwrite(fid_summary, ['label_list;num_of_images_on_synset', char(10)]);
 
 % Set label list and corresponding wnid list
 % gets input list from txt file separated by semi-colon.
@@ -27,10 +31,6 @@ basic_level_categories = struct([]);
 disp([char(10), 'Download basic level category images including :'])
 disp(label_list);
 disp(['The files will be saved in : ', home_folder]);
-
-summary_name = 'summary.txt';
-fid_summary = fopen([home_folder, '/' , summary_name], 'w');
-fwrite(fid_summary, 'label_list;num_of_images_on_synset');
 
 for idx = 1 : n_categories
     wnid = char(wnid_list(idx));
@@ -71,15 +71,15 @@ for idx = 1 : n_categories
     basic_level_categories(idx).sub_categories = sub_categories;   
     basic_level_categories(idx).n_of_imgs = n_of_total_imgs;
     % Backup the results (save every time)
-    fwrite(fid_summary, [label, ';', n_of_total_imgs]);
+    fwrite(fid_summary, [label, ';', num2str(n_of_total_imgs), char(10)]);
     save([home_folder, '/basic_level_categories_info.mat'], 'basic_level_categories');
    
     % Write a info txt files
     %
     % home_folder/info.txt file includes the information about the n_of_images
     % of each basic level category
-
-    fclose(fid_summary);
     write_info(home_folder, basic_level_categories(idx));
     
 end
+
+fclose(fid_summary);
