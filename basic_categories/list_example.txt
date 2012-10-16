@@ -1,0 +1,16 @@
+super_category_list;label_list;wnid_list
+animal;tiger;n02129604
+animal;cat;n02121620
+animal;dog;n02084071
+animal;horse;n02374451
+animal;zebra;n02391049
+inanimate_natural;sunflower;n11978233
+inanimate_natural;palm_tree;n12582231
+inanimate_natural;oak_tree;n12268246
+inanimate_natural;grape;n07758680
+inanimate_natural;apple;n07739125
+vehicle;car;n02958343
+inanimate_artificial;guitar;n03467517
+inanimate_artificial;chair;n03001627
+inanimate_artificial;piano;n03928116
+inanimate_artificial;bowl;n03206908

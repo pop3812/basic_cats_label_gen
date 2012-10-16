@@ -16,8 +16,8 @@ fwrite(fid_summary, ['label_list;num_of_images_on_synset', char(10)]);
 % Set label list and corresponding wnid list
 % gets input list from txt file separated by semi-colon.
 
-input_txt_file = [home_folder, '/input_category_list.txt'];
-tdfread(input_txt_file, ';');
+input_txt_file = [home_folder, '/raw_input.txt'];
+tdfread(input_txt_file, '\t');
 
 super_category_list = cellstr(super_category_list);
 label_list = cellstr(label_list);
